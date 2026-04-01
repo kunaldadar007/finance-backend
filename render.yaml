@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: finance-backend
+    runtime: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/finance-backend-*.jar
+    plan: free
+    preDeployCommand: true
+    healthCheckPath: /api/auth/health
+    healthCheckInterval: 30
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: APP_JWT_SECRET
+        scope: build,runtime
+        sync: false
+      - key: SPRING_DATASOURCE_URL
+        scope: build,runtime
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        scope: build,runtime
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        scope: build,runtime
+        sync: false
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update

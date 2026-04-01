@@ -1,0 +1,17 @@
+# Development-specific configuration
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB
+    username: C##kunal
+    password: kunal123
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    root: DEBUG
+    com.zorvyn.finance: DEBUG

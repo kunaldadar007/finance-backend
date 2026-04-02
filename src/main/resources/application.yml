@@ -1,10 +1,8 @@
-# Server Configuration
 server:
-  port: ${PORT:8081}  # Uses PORT env var from Heroku, defaults to 8081
+  port: ${PORT:8080}
   servlet:
     context-path: /api
 
-# Spring Configuration
 spring:
   application:
     name: Finance Backend
@@ -14,47 +12,27 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:C##kunal}
     password: ${SPRING_DATASOURCE_PASSWORD:kunal123}
     driver-class-name: oracle.jdbc.OracleDriver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 2
-      connection-timeout: 20000
-      idle-timeout: 300000
-      max-lifetime: 1200000
 
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: ${SPRING_JPA_SHOW_SQL:false}
+    show-sql: true
     properties:
       hibernate:
-        "[format_sql]": true
         dialect: org.hibernate.dialect.OracleDialect
-        jdbc:
-          batch_size: 20
-          fetch_size: 50
-        order_inserts: true
-        order_updates: true
 
-# Logging
 logging:
   level:
     root: INFO
-    "[com.zorvyn.finance]": DEBUG
+    com.zorvyn.finance: DEBUG
 
-# JWT Configuration (Custom)
 app:
   jwt:
-    secret: ${APP_JWT_SECRET:your-super-secret-key-must-be-at-least-32-characters-long-for-security-12345}
-    expiration: ${APP_JWT_EXPIRATION:86400000}
+    secret: ${APP_JWT_SECRET:your-super-secret-key-1234567890123456}
+    expiration: 86400000
 
-# Health Checks (for Render)
 management:
   endpoints:
     web:
       exposure:
         include: health,info
-  endpoint:
-    health:
-      show-details: always

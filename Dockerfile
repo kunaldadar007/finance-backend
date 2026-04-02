@@ -12,6 +12,6 @@ COPY --from=builder /app/target/finance-backend-*.jar app.jar
 # Oracle JDBC driver (if needed in container)
 RUN apk add --no-cache curl
 
-EXPOSE 8081
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
-CMD ["--server.port=8081"]
+CMD ["--server.port=8080"]

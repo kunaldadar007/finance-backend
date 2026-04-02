@@ -1,5 +1,7 @@
-# Development-specific configuration
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
   datasource:
     url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB
     username: C##kunal
@@ -8,10 +10,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none   # 🔥 change this
     show-sql: true
+    
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
     com.zorvyn.finance: DEBUG

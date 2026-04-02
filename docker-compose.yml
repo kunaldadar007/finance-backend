@@ -1,18 +1,17 @@
 version: '3.8'
 
 services:
-  # Finance Backend Application
   finance-backend:
     build: .
     container_name: finance-backend-app
     ports:
-      - "8081:8081"
+      - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-db:1521:ORCLPDB
-      SPRING_DATASOURCE_USERNAME: C##kunal
-      SPRING_DATASOURCE_PASSWORD: kunal123
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-db:1521:XE
+      SPRING_DATASOURCE_USERNAME: system
+      SPRING_DATASOURCE_PASSWORD: oracle
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_SHOW_SQL: false
       APP_JWT_SECRET: your-super-secret-key-must-be-at-least-32-characters-long
       APP_JWT_EXPIRATION: 86400000
     depends_on:
@@ -21,17 +20,16 @@ services:
       - finance-network
     restart: unless-stopped
 
-  # Oracle Database (optional - use existing database or external service)
-  # oracle-db:
-  #   image: container-registry.oracle.com/database/free:latest
-  #   container_name: finance-oracle-db
-  #   environment:
-  #     ORACLE_PASSWORD: kunal123
-  #   ports:
-  #     - "1521:1521"
-  #   networks:
-  #     - finance-network
-  #   restart: unless-stopped
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: finance-oracle-db
+    environment:
+      ORACLE_PASSWORD: oracle
+    ports:
+      - "2521:1521"
+    networks:
+      - finance-network
+    restart: unless-stopped
 
 networks:
   finance-network:
